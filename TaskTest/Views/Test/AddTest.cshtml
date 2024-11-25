@@ -1,0 +1,163 @@
+﻿@model AddTestDTO;
+@{
+    Layout = "_AdminLayout";
+    ViewData["Title"] = "AddTest";
+}
+
+<section class="content">
+    <div class="container-fluid">
+
+
+        <form asp-action="AddTest" asp-controller="Test" method="post" enctype="multipart/form-data">
+            <div class="row">
+                <div class="col-md-6"> 
+                    <label>Select Task</label>
+                    <select asp-for="TaskId" class="form-control">
+                        <option disabled selected>Choose option</option>
+                        @foreach (var task in Model.Tasks)
+                        {
+                            <option value="@task.Id">@task.Title</option>
+                        }
+                    </select>
+                    <p>
+                        <span asp-validation-for="TaskId" class="text-danger"></span>
+                    </p>
+                </div>
+            </div>
+
+            <div class="testParentDiv">
+                <div class="row firstTestDiv">
+                    <div class="col-md-4">
+                        <label>Select Programming Language</label>
+                        <select asp-for="@Model.Test[0].LanguageCode" class="form-control programmingLanguageSelect">
+                            <option disabled selected>Choose option</option>
+                            @foreach (var item in Model.ProgrammingLanguages)
+                            {
+                                <option value="@item.Code">@item.Name</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label>Function parameters</label>
+                            <textarea asp-for="@Model.Test[0].Parameter" class="form-control" rows="3" placeholder="Enter ..."></textarea>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label>Result </label>
+                            <textarea asp-for="@Model.Test[0].Result" class="form-control" rows="3" placeholder="Enter ..." ></textarea>
+                        </div>
+                    </div>
+
+
+                </div>
+                @if(Model.Test is not null)
+                {
+                    @for (int i = 1; i < Model.Test.Count; i++)
+                        {
+                            <div class="rowTest" style="width:100%">
+                                <div class="d-flex justify-content-xl-end">
+                                    <button type="button" class="btn btn-btn btn-danger removeParentDiv">X</button>
+                                </div>
+                                <div class="col-md-4">
+                                    <label>Select Programming Language</label>
+                                    <select asp-for="@Model.Test[i].LanguageCode" class="form-control programmingLanguageSelect">
+                                        <option disabled selected>Choose option</option>
+                                        @foreach (var item in Model.ProgrammingLanguages)
+                                        {
+                                            <option value="@item.Code">@item.Name</option>
+                                        }
+                                    </select>
+                                </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label>Function parameters</label>
+                                <textarea asp-for="@Model.Test[i].Parameter" class="form-control" rows="3" placeholder="Enter ...">
+                                    @Model.Test[i].Parameter
+                                </textarea>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label>Result </label>
+                                <textarea asp-for="@Model.Test[i].Result" class="form-control" rows="3" placeholder="Enter ...">
+                                    @Model.Test[i].Result
+                                </textarea>
+                            </div>
+                        </div>
+                    </div>
+                        }
+                }
+               
+
+            <input type="hidden" value="1" class="countTest"/>
+        </div>
+        <div class="d-flex justify-content-xl-start">
+                <button type="button" class="addTest btn btn-primary">Add test</button>
+        </div>
+        <div class="d-flex justify-content-xl-end">
+                <button class="btn btn-success">Save tests</button>
+        </div>
+       
+        </form>
+    </div>
+</section>
+
+@* @section Scripts {
+ *@    <script>
+            $(".addTest").on("click", function (e) {
+                e.preventDefault()
+                let quantity = $(".countTest").val()
+                
+                   var programmingLanguages = @Html.Raw(Json.Serialize(Model.ProgrammingLanguages));
+
+                   var options = "";
+                           programmingLanguages.forEach(language => {
+                                options += `<option value=${language.code}> ${language.name} </option>`
+                           });
+
+
+                   var el = `<div class="rowTest" style="width:100%">
+                                <div class="d-flex justify-content-xl-end">
+                                    <button type="button" class="btn btn-btn btn-danger removeParentDiv">X</button>
+                                </div>
+                                <div class="row">
+                                   <div class="col-md-4">
+                                       <label>Select Programming Language</label>
+                                        <select 
+                                        class="form-control"
+                                        data-val="true" data-val - required="The LanguageId field is required."
+                                                                         id = "Test_`+ quantity + `__LanguageCode" name = "Test[` + quantity + `].LanguageCode">
+                                            <option disabled selected> Choose language </option>
+                                            `+ options + `
+                                        </select>
+                                   </div>
+                                   <div class="col-sm-4">
+                                       <div class="form-group">
+                                           <label>Function parameters</label>
+                                            <textarea data-val="true" data-val-required="The Parameter field is required." id="Test_`+quantity+`__Parameter" name = "Test[`+quantity+`].Parameter" class="form-control" rows="3" placeholder="Enter ..."></textarea>
+                                       </div>
+                                   </div>
+                                   <div class="col-sm-4">
+                                       <div class="form-group">
+                                           <label>Result </label>
+                                            <textarea data-val="true" data-val-required="The Result field is required." id="Test_`+quantity+`__Result" name="Test[`+quantity+`].Result" class="form-control" rows="3" placeholder="Enter ..." ></textarea>
+                                       </div>
+                                   </div>
+                                 </div>
+                           </div>`;
+               $(".testParentDiv").append(el)
+               $(".countTest").val(++quantity)
+
+            })
+
+           $(document).on("click", ".removeParentDiv", function (e) {
+               e.preventDefault()
+               $(this).parent().parent().remove();
+           })
+
+    </script>
+@* } *@

@@ -1,0 +1,21 @@
+﻿@if (TempData["successMessage"] is not null)
+{
+    <div class="alert alert-success alert-d ismissible fade show" role="alert">
+        @TempData["successMessage"]
+        <button type="button" class="btn-close btn btn-info" data-bs-dismiss="alert" aria-label="Close">X</button>
+    </div>
+}
+
+@if (TempData["errorMessage"] is not null)
+{
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        @TempData["errorMessage"]
+        <button type="button" class="btn-close btn btn-info" data-bs-dismiss="alert" aria-label="Close">X</button>
+    </div>
+}
+
+<script>
+    $(".btn-close").on("click",function(){
+        $(this).parent().remove()
+    })
+</script>

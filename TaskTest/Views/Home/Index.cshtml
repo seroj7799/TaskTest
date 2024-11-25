@@ -1,0 +1,10 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+@if(User.IsInRole("Admin"))
+{
+    <h1>admin login</h1>
+}else{
+    <h1>User login </h1>
+}

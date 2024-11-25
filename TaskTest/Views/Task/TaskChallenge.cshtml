@@ -1,0 +1,107 @@
+﻿@{
+}
+
+@section Styles {
+    <link rel="stylesheet" href="/css/editor.css">
+}
+
+@section HeadScripts {
+    <!-- Include Ace Editor -->
+    <script src="/js/editor/ace.js"></script>
+    <script src="/js/editor/ext-language_tools.min.js"></script>
+}
+
+
+
+
+<h1 style="text-align:center;">Enhanced Code Editor</h1>
+<form>
+    <label for="language">Choose Programming Language:</label>
+    <select id="language" name="language" required>
+        <option value="javascript">JavaScript</option>
+        <option value="php">PHP</option>
+        <option value="python">Python</option>
+        <option value="csharp">C#</option>
+        <option value="c_cpp">C++</option>
+    </select>
+
+    <label for="code">Write Your Code:</label>
+    <div id="editor">// Write your code here...</div>
+
+    <button type="button" id="runCode">Run Code</button>
+    <label for="output">Output:</label>
+    <pre id="output"></pre>
+</form>
+
+
+<script>
+    console.log(4545454545);
+    // Initialize Ace Editor
+    const editor = ace.edit("editor");
+    editor.setTheme("ace/theme/monokai");
+    editor.session.setMode("ace/mode/javascript"); // Default to JavaScript
+    editor.setOptions({
+        fontSize: "14px",
+        enableBasicAutocompletion: true, // Enable auto-completion
+        enableLiveAutocompletion: true, // Enable live auto-completion
+        enableSnippets: true, // Enable snippets
+    });
+
+    // Add custom completer for JavaScript, C#, and C++
+    ace.require("ace/ext/language_tools").addCompleter({
+        getCompletions: function (editor, session, pos, prefix, callback) {
+            if (prefix.length === 0) return callback(null, []);
+            const snippets = [
+                // JavaScript snippets
+                { caption: "console.log", value: "console.log();", meta: "JavaScript" },
+                { caption: "function", value: "function ${1:name}(${2:params}) {\n\t${3:// body}\n}", meta: "JavaScript" },
+                { caption: "if", value: "if (${1:condition}) {\n\t${2:// body}\n}", meta: "JavaScript" },
+                { caption: "for", value: "for (let ${1:i} = 0; ${1:i} < ${2:array}.length; ${1:i}++) {\n\t${3:// body}\n}", meta: "JavaScript" },
+
+                // C# snippets
+                { caption: "Console.WriteLine", value: "Console.WriteLine(${1:\"message\"});", meta: "C#" },
+                { caption: "if", value: "if (${1:condition}) {\n\t${2:// body}\n}", meta: "C#" },
+                { caption: "for", value: "for (int ${1:i} = 0; ${1:i} < ${2:n}; ${1:i}++) {\n\t${3:// body}\n}", meta: "C#" },
+
+                // C++ snippets
+                { caption: "std::cout", value: "std::cout << ${1:\"message\"} << std::endl;", meta: "C++" },
+                { caption: "if", value: "if (${1:condition}) {\n\t${2:// body}\n}", meta: "C++" },
+                { caption: "for", value: "for (int ${1:i} = 0; ${1:i} < ${2:n}; ${1:i}++) {\n\t${3:// body}\n}", meta: "C++" },
+            ];
+            callback(null, snippets.map(s => ({
+                caption: s.caption,
+                value: s.value,
+                meta: s.meta,
+            })));
+        },
+    });
+
+    // Map languages to Ace modes
+    const languageMap = {
+        javascript: "javascript",
+        php: "php",
+        python: "python",
+        csharp: "csharp",
+        c_cpp: "c_cpp",
+    };
+
+    // Update editor language dynamically
+    const languageSelect = document.getElementById("language");
+    languageSelect.addEventListener("change", () => {
+        const selectedLanguage = languageSelect.value;
+        editor.session.setMode(`ace/mode/${languageMap[selectedLanguage]}`);
+    });
+
+    // Simulated code execution
+    const runButton = document.getElementById("runCode");
+    const outputField = document.getElementById("output");
+    runButton.addEventListener("click", () => {
+        const code = editor.getValue();
+        const language = languageSelect.value;
+
+        // Simulate output (real execution requires backend integration)
+        outputField.textContent = `Simulated Output:\n\nYou wrote code in ${language}:\n\n${code}`;
+    });
+</script>
+
+
