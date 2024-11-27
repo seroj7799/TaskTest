@@ -10,6 +10,7 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace TaskTest.Controllers
 {
+
     public class AccountController : Controller
     {
         private readonly SignInManager<User> signInManager;

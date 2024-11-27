@@ -25,11 +25,11 @@ public class TaskTitleAndId
 
 public class AddedTestDTO
 {
-    [Required]
+    [Required(ErrorMessage = "Programming language is required!")]
     public string LanguageCode { get; set; }
-    [Required]
+    [Required(ErrorMessage = "Parameter is required!")]
     public string Parameter { get; set; }
-    [Required]
+    [Required(ErrorMessage = "Result is required!")]
     public string Result { get; set; }
 
 }

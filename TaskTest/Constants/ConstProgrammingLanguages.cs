@@ -2,6 +2,6 @@
 {
     public enum ConstProgrammingLanguages
     {
-        CSharp = 1, Python, PHP, JS, C, CPP
+        csharp = 1, php, python, js, cpp
     }
 }

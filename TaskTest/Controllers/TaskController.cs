@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http.HttpResults;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TaskTest.Constants;
@@ -7,6 +8,7 @@ using TaskTest.Shared;
 
 namespace TaskTest.Controllers
 {
+    [Authorize]
     public class TaskController : Controller
     {
         private readonly UserManager<User> _userManager;
@@ -29,69 +31,70 @@ namespace TaskTest.Controllers
             return View(data);
         }
 
-        public IActionResult AddTask()
-        {
-            return View();
-        }
+        //[Authorize(Roles = nameof(Roles.Admin))]
+        //public IActionResult AddTask()
+        //{
+        //    return View();
+        //}
 
-        [HttpPost]
-        public async Task<IActionResult> AddTask(TaskDTO task)
-        {
-            if (!ModelState.IsValid)
-                return View(task);
+        //[HttpPost]
+        //public async Task<IActionResult> AddTask(TaskDTO task)
+        //{
+        //    if (!ModelState.IsValid)
+        //        return View(task);
 
-            try
-            {
-                ConstCategories CategoryCode =
-                    (ConstCategories)Enum.Parse(typeof(ConstCategories), task.Category);
-                int CategoryId = (int)CategoryCode;
+        //    try
+        //    {
+        //        ConstCategories CategoryCode =
+        //            (ConstCategories)Enum.Parse(typeof(ConstCategories), task.Category);
+        //        int CategoryId = (int)CategoryCode;
 
-                Tasks newTask = new()
-                {
-                    Title = task.Title,
-                    Description = task.Description,
-                    UserId = _userManager.GetUserId(User),
-                    DifficultyId = task.Difficulty,
-                    CategoryId = CategoryId,
-                    CreatedAt = DateTime.Now,
-                    UpdatedAt = DateTime.Now,
-                };
+        //        Tasks newTask = new()
+        //        {
+        //            Title = task.Title,
+        //            Description = task.Description,
+        //            UserId = _userManager.GetUserId(User),
+        //            DifficultyId = task.Difficulty,
+        //            CategoryId = CategoryId,
+        //            CreatedAt = DateTime.Now,
+        //            UpdatedAt = DateTime.Now,
+        //        };
 
-                await _taskRepositories.AddTask(newTask);
+        //        await _taskRepositories.AddTask(newTask);
 
-                Tasks lastTask = await _taskRepositories.GetLatest();
+        //        Tasks lastTask = await _taskRepositories.GetLatest();
 
-                if (task.Images != null)
-                {
-                    string folderName = "images/tasks";
-                    foreach (var image in task.Images)
-                    {
-                        if (image.Length > 1 * 1024 * 1024)
-                        {
-                            throw new InvalidOperationException("Image file can not exceed 1 MB");
-                        }
-                        string[] allowedExtensions = [".jpeg", ".jpg", ".png"];
-                        string imageName = await _fileService.SaveFile(image, allowedExtensions, folderName);
+        //        if (task.Images != null)
+        //        {
+        //            string folderName = "images/tasks";
+        //            foreach (var image in task.Images)
+        //            {
+        //                if (image.Length > 1 * 1024 * 1024)
+        //                {
+        //                    throw new InvalidOperationException("Image file can not exceed 1 MB");
+        //                }
+        //                string[] allowedExtensions = [".jpeg", ".jpg", ".png"];
+        //                string imageName = await _fileService.SaveFile(image, allowedExtensions, folderName);
 
-                        TaskImages taskImage = new TaskImages
-                        {
-                            TaskId = lastTask.Id,
-                            URL = folderName + "/" + imageName,
-                        };
-                        await _taskImageRepo.AddImage(taskImage);
-                    }
-                }
+        //                TaskImages taskImage = new TaskImages
+        //                {
+        //                    TaskId = lastTask.Id,
+        //                    URL = folderName + "/" + imageName,
+        //                };
+        //                await _taskImageRepo.AddImage(taskImage);
+        //            }
+        //        }
 
-                TempData["successMessage"] = "Task is added successfully";
-                return RedirectToAction(nameof(AddTask));
+        //        TempData["successMessage"] = "Task is added successfully";
+        //        return RedirectToAction(nameof(AddTask));
 
-            }
-            catch(Exception ex)
-            {
-                TempData["errorMessage"] = ex.Message;
-                return View(task);
-            }
-        }
+        //    }
+        //    catch(Exception ex)
+        //    {
+        //        TempData["errorMessage"] = ex.Message;
+        //        return View(task);
+        //    }
+        //}
 
     }
 }

@@ -1,9 +1,11 @@
-﻿<!doctype html>
+﻿@inject SignInManager<User> SignInManager
+
+<!doctype html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Book Store</title>
+    <title>TaskTest</title>
     <link href="/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/bootstrap-icons.css">
     @RenderSection("Styles", required: false)
@@ -19,25 +21,20 @@
             <div class="collapse navbar-collapse" id="navbarColor01">
                 <ul class="navbar-nav me-auto">
                    
-                    @if (User.IsInRole("Admin")){ 
-                        @*
-                    <li class="nav-item">
-                    <a class="nav-link" href="/AdminOperations/AllOrders">Orders</a>
-                    </li>
-                    <li class="nav-item">
-                    <a class="nav-link" href="/Stock/Index">Stock</a>
-                    </li>
-                    <li class="nav-item">
-                    <a class="nav-link" href="/Genre/Index">Genre</a>
-                    </li>
-                    <li class="nav-item">
-                    <a class="nav-link" href="/Book/Index">Books</a>
-                    </li>
-                    *@
+                    @if (User.IsInRole("Admin"))
+                    {
                         <li class="nav-item">
-                            <a class="nav-link" href="/Admin/Dashboard">Dashboards</a>
+                            <a class="nav-link" asp-area="Admin" asp-controller="Home" asp-action="Index">Dashboards</a>
                         </li>
                     }
+                    @if (SignInManager.IsSignedIn(User))
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link" asp-action="Index" asp-controller="Task">Tasks</a>
+                        </li>
+                    }
+                  
+
                     @*    <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Dropdown</a>
                     <div class="dropdown-menu">

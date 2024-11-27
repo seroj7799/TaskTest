@@ -36,12 +36,18 @@
                                 <option value="@item.Code">@item.Name</option>
                             }
                         </select>
+                        <p>
+                            <span class="text-danger" asp-validation-for="@Model.Test[0].LanguageCode"></span>
+                        </p>
                     </div>
                     <div class="col-sm-4">
                         <div class="form-group">
                             <label>Function parameters</label>
                             <textarea asp-for="@Model.Test[0].Parameter" class="form-control" rows="3" placeholder="Enter ..."></textarea>
                         </div>
+                        <p>
+                            <span class="text-danger" asp-validation-for="@Model.Test[0].Parameter"></span>
+                        </p>
                     </div>
 
                     <div class="col-sm-4">
@@ -49,6 +55,9 @@
                             <label>Result </label>
                             <textarea asp-for="@Model.Test[0].Result" class="form-control" rows="3" placeholder="Enter ..." ></textarea>
                         </div>
+                        <p>
+                            <span class="text-danger" asp-validation-for="@Model.Test[0].Result"></span>
+                        </p>
                     </div>
 
 
@@ -57,36 +66,46 @@
                 {
                     @for (int i = 1; i < Model.Test.Count; i++)
                         {
-                            <div class="rowTest" style="width:100%">
+                    <div class="rowTest" style="width:100%">
                                 <div class="d-flex justify-content-xl-end">
                                     <button type="button" class="btn btn-btn btn-danger removeParentDiv">X</button>
                                 </div>
-                                <div class="col-md-4">
-                                    <label>Select Programming Language</label>
-                                    <select asp-for="@Model.Test[i].LanguageCode" class="form-control programmingLanguageSelect">
-                                        <option disabled selected>Choose option</option>
-                                        @foreach (var item in Model.ProgrammingLanguages)
-                                        {
-                                            <option value="@item.Code">@item.Name</option>
-                                        }
-                                    </select>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <label>Select Programming Language</label>
+                                        <select asp-for="@Model.Test[i].LanguageCode" class="form-control programmingLanguageSelect">
+                                            <option disabled selected>Choose option</option>
+                                            @foreach (var item in Model.ProgrammingLanguages)
+                                            {
+                                                <option value="@item.Code">@item.Name</option>
+                                            }
+                                        </select>
+                                    <p>
+                                        <span class="text-danger" asp-validation-for="@Model.Test[i].LanguageCode"></span>
+                                    </p>
+                                    </div>
+                                    <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label>Function parameters</label>
+                                    <textarea asp-for="@Model.Test[i].Parameter" class="form-control" rows="3" placeholder="Enter ...">
+                                        @Model.Test[i].Parameter
+                                    </textarea>
                                 </div>
-                        <div class="col-sm-4">
-                            <div class="form-group">
-                                <label>Function parameters</label>
-                                <textarea asp-for="@Model.Test[i].Parameter" class="form-control" rows="3" placeholder="Enter ...">
-                                    @Model.Test[i].Parameter
-                                </textarea>
+                                    <p>
+                                        <span class="text-danger" asp-validation-for="@Model.Test[i].Parameter"></span>
+                                    </p>
                             </div>
-                        </div>
-
-                        <div class="col-sm-4">
-                            <div class="form-group">
-                                <label>Result </label>
-                                <textarea asp-for="@Model.Test[i].Result" class="form-control" rows="3" placeholder="Enter ...">
-                                    @Model.Test[i].Result
-                                </textarea>
-                            </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label>Result </label>
+                                            <textarea asp-for="@Model.Test[i].Result" class="form-control" rows="3" placeholder="Enter ...">
+                                                @Model.Test[i].Result
+                                            </textarea>
+                                        </div>
+                                            <p>
+                                                <span class="text-danger" asp-validation-for="@Model.Test[i].Result"></span>
+                                            </p>
+                                    </div>
                         </div>
                     </div>
                         }
@@ -106,14 +125,11 @@
     </div>
 </section>
 
-@* @section Scripts {
- *@    <script>
+  <script>
             $(".addTest").on("click", function (e) {
                 e.preventDefault()
                 let quantity = $(".countTest").val()
-                
                    var programmingLanguages = @Html.Raw(Json.Serialize(Model.ProgrammingLanguages));
-
                    var options = "";
                            programmingLanguages.forEach(language => {
                                 options += `<option value=${language.code}> ${language.name} </option>`
@@ -160,4 +176,3 @@
            })
 
     </script>
-@* } *@

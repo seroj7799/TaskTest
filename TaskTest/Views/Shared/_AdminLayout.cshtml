@@ -112,8 +112,6 @@
                                 <p>Users</p>
                             </a>
                         </li>
-
-
                         <li class="nav-item has-treeview">
                             <a class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
@@ -124,15 +122,13 @@
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a asp-action="Index" asp-controller="Task" class="nav-link">
-                                       
-                                        <p>All Task </p>
+                                    <a asp-action="Index" asp-controller="Task" asp-area="Admin" class="nav-link">
+                                        All Task
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a asp-action="AddTask" asp-controller="Task" class="nav-link">
-                                      
-                                        <p>Add Task</p>
+                                    <a asp-action="AddTask" asp-controller="Task" asp-area="Admin" class="nav-link">
+                                       Add Task
                                     </a>
                                 </li>
 @*                                 <li class="nav-item">
@@ -154,15 +150,13 @@
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a asp-action="Index" asp-controller="Test" class="nav-link">
-                                        
-                                        <p>All Tests </p>
+                                    <a asp-action="Index" asp-controller="Test" asp-area="Admin" class="nav-link">
+                                        All Tests
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a asp-action="AddTest" asp-controller="Test" class="nav-link">
-                                      
-                                        <p>Add Test</p>
+                                    <a asp-action="AddTest" asp-controller="Test" asp-area="Admin" class="nav-link">
+                                        Add Test
                                     </a>
                                 </li>
                                 @*                                 <li class="nav-item">
@@ -251,8 +245,6 @@
 <script src="/plugins/daterangepicker/daterangepicker.js"></script>
 <!-- Tempusdominus Bootstrap 4 -->
 <script src="/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
-<!-- Summernote -->
-<script src="/plugins/summernote/summernote-bs4.min.js"></script>
 <!-- overlayScrollbars -->
 <script src="/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
 <!-- AdminLTE App -->

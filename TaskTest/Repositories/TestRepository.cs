@@ -20,9 +20,15 @@
 
         public async Task AddTest(IEnumerable<Tests> data)
         {
-            foreach(var test in data) 
+            foreach (var test in data)
+            {
                 _dbContext.Tests.Add(test);
-            await _dbContext.SaveChangesAsync();
+                await _dbContext.SaveChangesAsync();
+            }
+
+            //_dbContext.Tests.AddRangeAsync(data);
+            //await _dbContext.SaveChangesAsync();
+
         }
 
         public async Task<IEnumerable<Tests>> GetAllTest()
