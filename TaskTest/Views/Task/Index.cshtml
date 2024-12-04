@@ -1,0 +1,53 @@
+﻿@model IEnumerable<Tasks>
+@section Styles {
+    <link rel="stylesheet" href="~/css/tasks.css">
+}
+
+<div class="row">
+    
+    <div class="task-filters row">
+    </div>
+    <div class="row all-tasks">
+        @if(Model != null)
+        {
+            @foreach (var task in Model)
+            {
+                <div class="row mt-5 task-div @task.Difficulty.Code-bg">
+                    <div class="col-6">
+                        <h3>
+                            @task.Title
+                        </h3>
+                        <p>
+                            @task.Description
+                        </p>
+                    </div>
+                    <div class="col-4">
+                        @if (task.TaskImages != null && task.TaskImages.Count() == 2)
+                        {
+                            <img class="task-image" src="@task.TaskImages[0].URL" />
+                            <img class="task-image" src="@task.TaskImages[1].URL" />
+                        }
+                        else if (task.TaskImages != null && task.TaskImages.Count() == 1)
+                        {
+                            <img class="task-image" src="@task.TaskImages[0].URL" />
+                        }
+                        else if (task.TaskImages != null && task.TaskImages.Count() > 2)
+                        {
+                            <img class="task-image" src="@task.TaskImages[0].URL" />
+                            <div class="task-image" style="display:inline-block;font-size: 70px;">
+                                +@(task.TaskImages.Count()-1)
+                            </div>
+                        }
+                    </div>
+                </div>
+            }
+        }
+        else
+        {
+            <div>
+                Not found any task
+            </div>
+        }
+
+    </div>
+</div>

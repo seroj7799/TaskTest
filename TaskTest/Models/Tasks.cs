@@ -32,10 +32,12 @@ namespace TaskTest.Models
 
         [MaxLength(2)]
         public int IsDeleted { get; set; } = 0;
-
-        public ICollection<Solutions> Solutions { get; set; }
+ 
+        public ICollection<Solutions>? Solutions { get; set; }
 
         public ICollection<Tests> Tests { get; set; }
+
+        public IList<TaskImages>? TaskImages { get; set; }
 
     }
 }

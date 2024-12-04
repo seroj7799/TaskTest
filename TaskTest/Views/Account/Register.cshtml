@@ -3,129 +3,89 @@
     ViewData["Title"] = "Register";
 }
 @section Styles {
-    <link href="/css/register.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="~/css/register.css">
+    
 }
-<section class="gradient-custom">
-    <div class="container  h-100">
-        <div class="row justify-content-center align-items-center h-100">
-            <div class="col-12 col-lg-9 col-xl-7">
-                <div class="card shadow-2-strong card-registration" style="border-radius: 15px;">
-                    <div class="card-body p-4 ">
-                        <h3 class="mb-4 pb-2 pb-md-0 mb-md-5">Registration Form</h3>
-                        <form asp-action="Register" method="post">
-                            <div class="row">
-                                <div class="col-md-6 mb-4">
-                                    <div data-mdb-input-init class="form-outline">
-                                        <label class="form-label" >Name</label>
-                                        <input type="text" asp-for="Name" class="form-control form-control-lg" />
-                                        <span class="text-danger" asp-validation-for="Name"></span>
-                                    </div>
-                                </div>
-                                <div class="col-md-6 mb-4">
-                                    <div data-mdb-input-init class="form-outline">
-                                        <label class="form-label" >Surname</label>
-                                        <input type="text" asp-for="Surname" class="form-control form-control-lg" />
-                                        <span class="text-danger" asp-validation-for="Surname"></span>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-md-6 mb-4 d-flex align-items-center">
-
-                                    <div data-mdb-input-init class="form-outline datepicker w-100">
-                                        <label asp-for="BirthDay" class="form-label">Birthday</label>
-                                        <input type="date" class="form-control form-control-lg" asp-for="BirthDay" />
-                                        <span asp-validation-for="BirthDay" class="text-danger"></span>
-                                    </div>
 
 
-                                </div>
-                                <div class="col-md-6 mb-4">
 
-                                    <h6 class="mb-2 pb-1">Gender: </h6>
 
-                                    <div class="form-check form-check-inline">
-                                        <label class="form-check-label" for="femaleGender">Female</label>
-                                        <input asp-for="Gender" class="form-check-input" type="radio" name="Gender" id="femaleGender"
-                                               value="female" />
-                                    </div>
+    <!-- MATERIAL DESIGN ICONIC FONT -->
 
-                                    <div class="form-check form-check-inline">
-                                        <input asp-for="Gender" class="form-check-input" type="radio" name="Gender" id="maleGender"
-                                               value="male" />
-                                        <label class="form-check-label" for="maleGender">Male</label>
-                                    </div>
-                                    <span asp-validation-for="Gender" class="text-danger"></span>
+    <!-- STYLE CSS -->
 
-                                </div>
-                            </div>
 
-                            <div class="row">
-                                <div class="col-md-6 mb-4 pb-2">
-                                    <div data-mdb-input-init class="form-outline">
-                                        <label class="form-label">Email</label>
-                                        <input type="text" asp-for="Email" name="Email" class="form-control form-control-lg" />
-                                        <span asp-validation-for="Email" class="text-danger"></span>
-                                    </div>
-                                </div>
-                                <div class="col-md-6 mb-4 pb-2">
-                                    <div data-mdb-input-init class="form-outline">
-                                        <label class="form-label">Phone Number</label>
-                                        <input type="tel" asp-for="Phone" class="form-control form-control-lg" />
-                                        <span asp-validation-for="Phone" class="text-danger"></span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6 mb-4 pb-2">
-
-                                    <div data-mdb-input-init class="form-outline">
-                                        <label class="form-label" asp-for="Password">Password</label>
-                                        <input type="password" asp-for="Password" class="form-control form-control-lg" />
-                                        <span asp-validation-for="Password" class="text-danger"></span>
-                                    </div>
-
-                                </div>
-                                <div class="col-md-6 mb-4 pb-2">
-
-                                    <div data-mdb-input-init class="form-outline">
-                                        <label class="form-label" asp-for="ConfirmPassword">Confirm Password</label>
-                                        <input type="password" asp-for="ConfirmPassword" class="form-control form-control-lg" />
-                                        <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
-
-                                    </div>
-
-                                </div>
-                            </div>
-                            <div class="row">
-                                @*
-                                <div class="col-12">
-
-                                    <select class="select form-control-lg">
-                                        <option value="1" disabled>Choose option</option>
-                                        <option value="2">Subject 1</option>
-                                        <option value="3">Subject 2</option>
-                                        <option value="4">Subject 3</option>
-                                    </select>
-                                    <label class="form-label select-label">Choose option</label>
-
-                                </div>
-                                *@
-                            </div>
-
-                            <div asp-validation-summary="ModelOnly" class="text-danger">
-
-                            </div>
-
-                            <div class="mt-4 pt-2">
-                                <input data-mdb-ripple-init class="btn btn-primary btn-lg" type="submit" value="Submit" />
-                            </div>
-
-                        </form>
+    <div class="wrapper" style="background-image: url('/images/reg_back.jpg'); border-radius:10px">
+        <div class="inner">
+        <form asp-action="Register" method="post">
+                <h3>Registration Form</h3>
+                <div class="form-group">
+                    <div class="form-wrapper">
+                        <label for="">Name</label>
+                        <input type="text" asp-for="Name" class="form-control form-control-lg" />
+                        <span class="text-danger" asp-validation-for="Name"></span>
+                    </div>
+                    <div class="form-wrapper">
+                        <label for="">Surname</label>
+                        <input type="text" asp-for="Surname" class="form-control form-control-lg" />
+                        <span class="text-danger" asp-validation-for="Surname"></span>
                     </div>
                 </div>
-            </div>
+                <div class="form-wrapper">
+                    <label asp-for="BirthDay" class="form-label">Birthday</label>
+                    <input type="date" class="form-control form-control-lg" asp-for="BirthDay" />
+                    <span asp-validation-for="BirthDay" class="text-danger"></span>
+                </div>
+
+                <div class="form-wrapper">
+
+                    <h6 class="mb-2 pb-1">Gender: </h6>
+
+                    <div class="form-check form-check-inline">
+                        <input asp-for="Gender" class="form-check-input" type="radio" name="Gender" id="femaleGender"
+                           value="female" />
+                        <label class="form-check-label" for="femaleGender">Female</label>
+                       
+                    </div>
+
+                    <div class="form-check form-check-inline">
+                        <input asp-for="Gender" class="form-check-input" type="radio" name="Gender" id="maleGender"
+                               value="male" />
+                        <label class="form-check-label" for="maleGender">Male</label>
+                    </div>
+                    <span asp-validation-for="Gender" class="text-danger"></span>
+
+                </div>
+
+                <div class="form-group">
+                    <div class="form-wrapper">
+                        <label for="">Email</label>
+                        <input type="text" asp-for="Email" name="Email" class="form-control form-control-lg" />
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-wrapper">
+                        <label class="form-label">Phone Number</label>
+                        <input type="tel" asp-for="Phone" class="form-control form-control-lg" />
+                        <span asp-validation-for="Phone" class="text-danger"></span>
+                    </div>
+                </div>
+               
+
+                <div class="form-wrapper">
+                    <label class="form-label" asp-for="Password">Password</label>
+                    <input type="password" asp-for="Password" class="form-control form-control-lg" />
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                </div>
+                <div class="form-wrapper">
+                    <label class="form-label" asp-for="ConfirmPassword">Password</label>
+                    <input type="password" asp-for="ConfirmPassword" class="form-control form-control-lg" />
+                    <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                </div>
+
+                <button>Register Now</button>
+                <div asp-validation-summary="ModelOnly" class="text-danger">
+                </div>
+            </form>
         </div>
     </div>
-</section> 

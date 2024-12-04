@@ -1,20 +1,25 @@
-﻿@inject SignInManager<User> SignInManager
-
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<User> SignInManager
+@inject UserManager<User> UserManager
 <!doctype html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>TaskTest</title>
-    <link href="/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="/bootstrap-icons.css">
+    <link href="~/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="~/css/bootstrap-icons.css">
+    <script src="~/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/popper.min.js"></script>
+    <link rel="stylesheet" href="~/css/main.css">
+
     @RenderSection("Styles", required: false)
 
 </head>
 <body>
     <nav class="navbar navbar-expand-lg bg-primary" data-bs-theme="dark">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">Task Test</a>
+            <a class="navbar-brand navbar-item" href="/">Task Test</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -23,25 +28,63 @@
                     @if (User.IsInRole("Admin"))
                     {
                         <li class="nav-item">
-                            <a class="nav-link" asp-area="Admin" asp-controller="Home" asp-action="Index">Dashboards</a>
+                            <a class="nav-link navbar-item" asp-area="Admin" asp-controller="Home" asp-action="Index">Dashboards</a>
                         </li>
                     }
                     @if (SignInManager.IsSignedIn(User))
                     {
                         <li class="nav-item">
-                            <a class="nav-link" asp-action="Index" asp-controller="Task">Tasks</a>
+                            <a class="nav-link navbar-item" asp-action="Index" asp-controller="Task">Tasks</a>
                         </li>
                     }
                 </ul>
-                <partial name="_Navbar" />
+                <ul class="navbar-nav">
+                    @if (SignInManager.IsSignedIn(User))
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link navbar-item" asp-controller="Home" asp-action="Index" id="navbarUsername" title="Manage">
+                                @if (User.Identity.IsAuthenticated)
+                                {
+                                    var user = await UserManager.GetUserAsync(User);
+                                    if (user != null)
+                                    {
+                                        <span>
+                                            @($"{user.Name} {user.Surname} ")
+                                        </span>
+                                    }
+                                }
+
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <form class="form-inline" asp-action="Logout" method="post" asp-controller="Account">
+                                <button type="submit" class="nav-link btn btn-link text-white">Logout</button>
+                            </form>
+                        </li>
+                    }
+                    else
+                    {
+
+                        <li class="nav-item">
+                            <a class="nav-link navbar-item" asp-controller="Account" asp-action="Register">Register</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link navbar-item" asp-action="Login" asp-controller="Account">Login</a>
+                        </li>
+                    }
+                </ul>
             </div>
         </div>
     </nav>
     <div class="container">
         <div class="my-2">
-       </div>
+        </div>
         @RenderBody()
     </div>
+
+    <footer>
+        <p>&copy; 2024 Learn to Code. All rights reserved.</p>
+    </footer>
 </body>
-<script src="/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"></script>
+<script src="~/js/main.js"></script>
 </html>

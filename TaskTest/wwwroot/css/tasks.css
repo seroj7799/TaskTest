@@ -1,0 +1,75 @@
+﻿.dificulty1-bg{
+    color: #0dcaf0;
+    border-color: #0dcaf0;
+}
+
+.dificulty1-bg:hover {
+    color: #fff;
+    background-color: #0dcaf0;
+    border-color: #0dcaf0;
+}
+.dificulty2-bg{
+    color: #0d6efd;
+    border-color: #0d6efd;
+}
+.dificulty2-bg:hover {
+    color: #fff;
+    background-color: #0d6efd;
+    border-color: #0d6efd;
+}
+
+.dificulty3-bg {
+    color: #17cf25;
+    border-color: #17cf25;
+}
+
+.dificulty3-bg:hover {
+    color: #fff;
+    background-color: #17cf25;
+    border-color: #17cf25;
+}
+
+.dificulty4-bg{
+    color: #ffc107;
+    border-color: #ffc107;
+}
+
+.dificulty4-bg:hover {
+    color: #fff;
+    background-color: #ffc107;
+    border-color: #ffc107;
+}
+
+.dificulty5-bg{
+    color: #dc3545;
+    border-color: #dc3545;
+}
+
+.dificulty5-bg:hover {
+    color: #fff;
+    background-color: #dc3545;
+    border-color: #dc3545;
+}
+.dificulty6-bg{
+    color: #212529;
+    border-color: #212529;
+}
+
+.dificulty6-bg:hover{
+    color: #fff;
+    background-color: #212529;
+    border-color: #212529;
+}
+.task-div {
+    border: 2px solid;
+    border-radius: 10px;
+    margin-top: 10px;
+    padding:5px 0;
+}
+.task-div:hover{
+    cursor:pointer;
+}
+.task-image {
+    width: 110px;
+    height: 110px;
+}

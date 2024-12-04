@@ -19,7 +19,10 @@ namespace TaskTest.Repositories
         public async Task<IEnumerable<Tasks>> GetAllTasks()
         {
             return await _context.Tasks.Include(a => a.Category).
-                Include(a => a.Difficulty).ToArrayAsync();
+                Include(a => a.Difficulty)
+                .Include(a => a.Tests)
+                .Include(a => (a as Tasks).TaskImages)
+                .ToArrayAsync();
         }
 
         public async Task<Tasks?> GetLatest()
